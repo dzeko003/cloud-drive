@@ -7,6 +7,7 @@ import { FileExplorer } from "@/components/file-explorer";
 import { RecentView } from "@/components/recent-view";
 import { SearchResults } from "@/components/search-results";
 import { TrashView } from "@/components/trash-view";
+import { UploadModal } from "@/components/upload-modal";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useFileStore } from "@/lib/file-store";
 import { useState } from "react";

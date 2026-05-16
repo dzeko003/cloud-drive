@@ -90,12 +90,15 @@ export function FileStoreProvider({ children }: { children: ReactNode }) {
       } else {
         const folder = files.find((f) => f.id === folderId);
         if (folder) {
-          const newPath = [{ id: null, name: "My Files" }];
-          folder.path.forEach((pathName, index) => {
+          const newPath: { id: string | null; name: string }[] = [
+            { id: null, name: "My Files" },
+          ];
+          folder.path.forEach((pathName) => {
             const pathFolder = files.find(
               (f) => f.name === pathName && f.type === "folder",
             );
-            if (pathFolder) {
+            if (pathFolder && pathFolder.id) {
+              // Ajout d'une vérification explicite
               newPath.push({ id: pathFolder.id, name: pathFolder.name });
             }
           });
@@ -244,7 +247,8 @@ export function FileStoreProvider({ children }: { children: ReactNode }) {
   const getSearchResults = useCallback(() => {
     if (!searchQuery.trim()) return [];
 
-    let results = files.filter((f) => {
+    // Correction 1: Changement de 'let' en 'const' puisque 'results' n'est pas réassignée
+    const results = files.filter((f) => {
       if (f.isDeleted) return false;
       const matchesQuery = f.name
         .toLowerCase()
